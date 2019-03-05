@@ -14,12 +14,12 @@ def call(String a){
         jdkHome = tool 'jdk'
      }
      stage('Package') {
-        sh "'${mvnHome}/bin/mvn' package"
+        sh "'${mvnHome}/bin/mvn' test package"
      }
       
      stage('Results') {
         archive 'target/*.jar'
-	junit 'target/surefire-reports/TEST-*.xml'
+	junit 'target/surefire-reports/*.xml'
      }
   }
 }
