@@ -5,15 +5,20 @@ def call(String a){
    }else{
      echo "-----------------bbb"
    }
-   node {
-     stage("in groovy 1") {
-       echo "-----------111"
+   pipeline {
+     agent any
+     environment {
+       abc = "abc"
      }
-     stage("in groovy 2") {
-       echo "-----------2222"
+     tools {
+       jdk 'jdk'
      }
-     stage("in groovy 3") {
-       echo "-----------3333"
+     stages {
+       stage('in library') {
+         steps {
+	   echo "++++++++ in ++++++"
+	 }       
+       }
      }
    }
 }
