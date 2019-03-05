@@ -16,18 +16,7 @@ def call(String a){
      stage('Package') {
         sh "'${mvnHome}/bin/mvn' package"
      }
-     def imagesName = 'registry.cn-hangzhou.aliyuncs.com/dcits/runindocker:v0.1'  
-     stage('Push') {
-         docker.build("registry.cn-hangzhou.aliyuncs.com/dcits/runindocker:v0.1",'.')
-     }
-     stage('Deploy') {
-        try{
-          sh 'docker rm -f runindocker'
-        }catch(e){
-          // err message
-        }
-        docker.image(imagesName).run('-d --restart=unless-stopped -p 9091:80 --name runindocker') 
-     }
+      
      stage('Results') {
         archive 'target/*.jar'
 	junit 'target/surefire-reports/TEST-*.xml'
