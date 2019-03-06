@@ -4,7 +4,7 @@ def call(Map map){
     pipeline {
         agent any
         environment {
-            tag = "v0.3.${BUILD_NUMBER}"
+            tag = "${map.tag}.${BUILD_NUMBER}"
             registry = "registry.ecloud.work"
             scanPath = "./target/dependency/*.jar"
             imageName = "gwcloud/isearch-api:${tag}"

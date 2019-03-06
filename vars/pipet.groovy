@@ -14,22 +14,22 @@ def call(Map map){
             maven 'maven'
             jdk 'jdk'
         }
+        def utils = new org.foo.Utils(steps)
         stages {
-            def comm = new org.foo.Utils(steps)
             stage('CheckOut') {
                 steps {
-                    comm.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
+                    utils.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
                 }
             }
             stage('编译&单元测试') {
                 steps {
-                    comm.packageAndJunit()
+                    utils.packageAndJunit()
                 }
             }
             stage('生成镜像') {
                 steps {
                     script {
-                        comm.buildImage("${registry}","${dockerCredentialsId}","${imageName}")
+                        utils.buildImage("${registry}","${dockerCredentialsId}","${imageName}")
                     }
                 }
             }
