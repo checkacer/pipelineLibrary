@@ -1,5 +1,5 @@
 #!groovy 
-def call(String giturl){
+def called(String giturl){
     if(giturl == "a"){
         echo "starting fetch code......"
     }else{
