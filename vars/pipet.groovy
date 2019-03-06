@@ -1,8 +1,10 @@
 #!groovy
-import org.foo.Utilities
 def call(){
     pipeline {
         agent any
+        parameters {
+
+        }
         environment {
             registry = "registry.cn-hangzhou.aliyuncs.com"
             gitCredentialsId = "a6600fad-d566-4408-b024-2d5e8ea29311"
@@ -14,14 +16,14 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
+        def u = new org.foo.Command(steps)
         stages {
             stage('test') {
                 steps {
-                    def u = new org.foo.Utilities(steps)
+
                     echo "Hello World"
                 }
             }
         }
-
     }
 }
