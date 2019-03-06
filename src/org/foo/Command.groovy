@@ -79,7 +79,7 @@ class Command implements Serializable {
                      reportName: "${reportName}",
                      reportTitles: "${reportTitles}"])
     }
-    def static  echo(){
+    def echo(){
         echo 'class echo ...'
     }
 }
