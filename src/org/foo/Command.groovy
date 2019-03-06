@@ -1,7 +1,9 @@
 package org.foo
 class Command implements Serializable {
     def steps
-    Command(steps)(this.steps = steps)
+    Command(steps){
+        this.steps = steps
+    }
 // 下载代码
     def checkOutFromGit(branch,credentialsId,repo) {
         git branch: "${branch}", credentialsId: "${credentialsId}", url: "${repo}"
