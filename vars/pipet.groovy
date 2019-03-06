@@ -18,6 +18,7 @@ def call(){
 
             stage('test') {
                 steps {
+                    def u = new Utils(steps)
                     echo "Hello World"
                 }
             }
