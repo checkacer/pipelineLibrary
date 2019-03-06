@@ -1,3 +1,4 @@
+import org.foo.Utils
 def call(){
     pipeline {
         agent any
@@ -12,7 +13,7 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-        def util = new org.foo.Utils(steps)
+        def util = new Utils(steps)
         stages {
             stage('test') {
                 steps {
