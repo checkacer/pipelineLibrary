@@ -5,7 +5,7 @@ def call(String giturl){
    }else{
      echo "-----------------bbb"
    }
-   node {
+  
      def mvnHome
      def jdkHome
      stage('Preparation') { 
@@ -21,5 +21,5 @@ def call(String giturl){
         archive 'target/*.jar'
 	junit 'target/surefire-reports/*.xml'
      }
-  }
+ 
 }
