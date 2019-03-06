@@ -13,7 +13,7 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-        def u = new org.foo.Command(steps)
+        def u = new org.foo.Utilities(steps)
         stages {
             stage('test') {
                 steps {
