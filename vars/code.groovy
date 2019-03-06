@@ -8,7 +8,8 @@ def call(Map map){
             registry = "registry.ecloud.work"
             scanPath = "./target/dependency/*.jar"
             imageName = "gwcloud/isearch-api:${tag}"
-            gitCredentialsId = "registry-hub-credentials"
+            gitCredentialsId = "0afa4ce7-6007-43bd-9b44-be880905b5c9"
+            dockerCredential = "registry-hub-credentials"
             sonarQubeScannerHome = "sonar-scanner-3.2.0.1227"
             yamlName = "isearch-api.template.yaml"
             postmanCJ = "./src/test/resources/isearch.postman_collection.json"
@@ -27,7 +28,7 @@ def call(Map map){
         stages {
             stage('CheckOut') {
                 steps {
-                    comm.checkOutFromGit("${map.branch}","${map.gitCredentialsId}","${map.repoUrl}")
+                    comm.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
                 }
             }
             stage('编译&单元测试') {
@@ -47,7 +48,7 @@ def call(Map map){
                     stage('生成镜像') {
                         steps {
                             script {
-                                comm.buildImage("${registry}","${gitCredentialsId}","${imageName}")
+                                comm.buildImage("${registry}","${dockerCredential}","${imageName}")
                             }
                         }
                     }
