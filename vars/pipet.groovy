@@ -14,9 +14,10 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-
+        u.setSteps(steps)
         stages {
             stage('test') {
+
                 steps {
 
                     echo "Hello World"
