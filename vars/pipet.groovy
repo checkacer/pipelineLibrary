@@ -15,24 +15,9 @@ def call(Map map){
             jdk 'jdk'
         }
         def utils = new Utils(steps)
-        stages {
-            stage('CheckOut') {
-                steps {
-                    utils.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
-                }
-            }
-            stage('编译&单元测试') {
-                steps {
-                    utils.packageAndJunit()
-                }
-            }
-            stage('生成镜像') {
-                steps {
-                    script {
-                        utils.buildImage("${registry}","${dockerCredentialsId}","${imageName}")
-                    }
-                }
-            }
+        stage('build') {
+            utils.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
         }
+
     }
 }
