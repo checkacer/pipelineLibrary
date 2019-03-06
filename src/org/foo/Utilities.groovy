@@ -1,8 +1,8 @@
 package org.foo
 
-class Utils implements Serializable{
+class Utilities implements Serializable{
     def steps
-    Utils(steps){
+    Utilities(steps){
         this.steps = steps
     }
     // 下载代码

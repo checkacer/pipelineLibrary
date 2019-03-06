@@ -1,5 +1,5 @@
 #!groovy
-import org.foo.Utils
+import org.foo.Utilities
 def call(){
     pipeline {
         agent any
@@ -17,7 +17,7 @@ def call(){
         stages {
             stage('test') {
                 steps {
-                    def u = new Utils(steps)
+                    def u = new Utilities(steps)
                     echo "Hello World"
                 }
             }
