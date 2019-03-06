@@ -17,7 +17,7 @@ def call(){
         stages {
             stage('test') {
                 steps {
-                    def u = new Utilities(steps)
+                    def u = new org.foo.Utilities(steps)
                     echo "Hello World"
                 }
             }
