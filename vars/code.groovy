@@ -6,10 +6,6 @@ def call(String giturl){
     }else{
         echo "-----------------bbb"
     }
-    tools {
-        maven 'maven'
-	jdk 'jdk'
-    }
     def comm = new org.foo.Command(steps)
     comm.packageAndJunit()
 }
