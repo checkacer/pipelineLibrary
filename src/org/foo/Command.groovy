@@ -6,27 +6,27 @@ class Command implements Serializable {
     }
 // 下载代码
     def checkOutFromGit(branch,credentialsId,repo) {
-        git branch: "${branch}", credentialsId: "${credentialsId}", url: "${repo}"
+        steps.git branch: "${branch}", credentialsId: "${credentialsId}", url: "${repo}"
     }
 // 编译&单元测试
     def packageAndJunit(){
-        sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package dependency:copy-dependencies -U -Pproduction -Dmaven.test.failure.ignore'
+        steps.sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package dependency:copy-dependencies -U -Pproduction -Dmaven.test.failure.ignore'
     }
 // 代码审查
     def codeReview(sonarQubeScannerHome){
-        withSonarQubeEnv('SonarQube') {
-            sh "${sonarQubeScannerHome}/bin/sonar-scanner"
+        steps.withSonarQubeEnv('SonarQube') {
+            steps.sh "${sonarQubeScannerHome}/bin/sonar-scanner"
         }
     }
 // 生成镜像
     def buildImage(repo,credential,imageName){
-        docker.withRegistry("https://${repo}","${credential}") {
-            docker.build("${imageName}",'.').push()
+        steps.docker.withRegistry("https://${repo}","${credential}") {
+            steps.docker.build("${imageName}",'.').push()
         }
     }
 // 依赖安全检查
     def dependencyCheck(scanPath){
-        dependencyCheckAnalyzer datadir: '',
+        steps.dependencyCheckAnalyzer datadir: '',
             hintsFile: '',
             includeCsvReports: false,
             includeHtmlReports: false,
@@ -39,7 +39,7 @@ class Command implements Serializable {
             suppressionFile: '',
             zipExtensions: ''
         // 有高级别组件漏洞时，fail掉pipeline
-        dependencyCheckPublisher canComputeNew: false,
+        steps.dependencyCheckPublisher canComputeNew: false,
             defaultEncoding: '',
             failedTotalHigh: '0',
             healthy: '',
@@ -54,14 +54,14 @@ class Command implements Serializable {
     }
 // 部署到k8s集群
     def applyK8s(yaml,tag){
-        sh "cat ${yaml} | sed 's/{tag}/${tag}/' | kubectl --kubeconfig /jenkins/.kube/config apply -f -"
+        steps.sh "cat ${yaml} | sed 's/{tag}/${tag}/' | kubectl --kubeconfig /jenkins/.kube/config apply -f -"
     }
     def junit(url){
-        junit "${url}"
+        steps.junit "${url}"
     }
     def apiTest(path,postmanCJ,postmanEJ,reporterEXml,reporterEHtml,reporterTHtml,reportName,reportTitles){
         try{
-            sh "export PATH=$path:/jenkins/tools/node-v8.11.2-linux-x64/bin/&&" +
+            steps.sh "export PATH=$path:/jenkins/tools/node-v8.11.2-linux-x64/bin/&&" +
                 "newman run ${postmanCJ} " +
                 "-e ${postmanEJ} " +
                 "--reporters html,cli,junit " +
@@ -69,9 +69,9 @@ class Command implements Serializable {
                 "--reporter-html-export ${reporterEHtml} " +
                 "--reporter-html-template ${reporterTHtml}"
         } catch (e) {
-            echo 'API测试出现错误' + e.toString()
+            steps.echo 'API测试出现错误' + e.toString()
         }
-        publishHTML([allowMissing: false,
+        steps.publishHTML([allowMissing: false,
                      alwaysLinkToLastBuild: true,
                      keepAll: false,
                      reportDir: './',
@@ -80,6 +80,6 @@ class Command implements Serializable {
                      reportTitles: "${reportTitles}"])
     }
     def echo(){
-        echo 'class echo ...'
+        steps.echo 'class echo ...'
     }
 }
