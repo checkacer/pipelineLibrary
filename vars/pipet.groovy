@@ -1,5 +1,3 @@
-#!groovy
-import org.foo.Utils
 def call(Map map){
     pipeline {
         agent any
@@ -14,7 +12,7 @@ def call(Map map){
             maven 'maven'
             jdk 'jdk'
         }
-        def utils = new Utils(steps)
+        def utils = new org.foo.Utils(steps)
         stage('build') {
             utils.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
         }
