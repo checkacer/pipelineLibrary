@@ -15,7 +15,7 @@ def call(){
         }
 
         stages {
-            def util = new Utils(steps)
+
             stage('test') {
                 steps {
                     echo "Hello World"
