@@ -19,6 +19,7 @@ def call(){
                 steps {
                     script {
                         u.setSteps(steps)
+                        u.packageAndJunit()
                         echo "Hello World"
                     }
                 }
