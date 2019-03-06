@@ -13,8 +13,9 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-        def util = new Utils(steps)
+
         stages {
+            def util = new Utils(steps)
             stage('test') {
                 steps {
                     echo "Hello World"
