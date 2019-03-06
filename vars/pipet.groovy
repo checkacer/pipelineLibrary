@@ -14,7 +14,7 @@ def call(Map map){
             maven 'maven'
             jdk 'jdk'
         }
-        def utils = new org.foo.Utils(steps)
+        def utils = new Utils(steps)
         stages {
             stage('CheckOut') {
                 steps {
