@@ -9,25 +9,33 @@ def call(){
             dockerCredential = "aliyun"
             branch = "master"
             repoUrl = "https://github.com/checkacer/runindockerdemo"
+            imageName = "api-t"
         }
         tools {
             maven 'maven'
             jdk 'jdk'
         }
         stages {
-            stage('test') {
+            stage('checkOut') {
                 steps {
                     script {
                         u.setSteps(steps)
-                        u.packageAndJunit()
+                        u.checkOutFromGit("${branch}","${gitCredentialsId}","${repoUrl}")
                         echo "Hello World"
                     }
                 }
             }
-            stage('test2'){
+            stage('package'){
                 steps {
                     script {
                         u.packageAndJunit()
+                    }
+                }
+            }
+            stage('build') {
+                steps {
+                    script {
+                        u.buildImage("registry","dockerCredential","${imageName}")
                     }
                 }
             }
