@@ -11,7 +11,7 @@ class Utilities implements Serializable{
     }
     // 编译&单元测试
     def packageAndJunit() {
-        steps.sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package dependency:copy-dependencies -U -Pproduction -Dmaven.test.failure.ignore'
+        steps.sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent package dependency:copy-dependencies -U -Pproduction -Dmaven.test.failure.ignore'
     }
     // 生成镜像
     def buildImage(registry, dockerCredential, imageName) {
