@@ -1,5 +1,6 @@
 #!groovy
 def call(){
+    def u = new org.foo.Utilities()
     pipeline {
         agent any
         environment {
@@ -13,7 +14,7 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-        def u = new org.foo.Utilities()
+
         stages {
             stage('test') {
                 steps {
