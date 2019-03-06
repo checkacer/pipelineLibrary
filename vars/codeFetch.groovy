@@ -14,7 +14,7 @@ def call(String giturl){
         jdkHome = tool 'jdk'
      }
      stage('Package') {
-        sh "'${mvnHome}/bin/mvn' package"
+        sh "'${mvnHome}/bin/mvn' package -X "
      }
       
      stage('Results') {
