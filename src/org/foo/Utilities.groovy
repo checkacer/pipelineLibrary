@@ -11,7 +11,7 @@ class Utilities implements Serializable{
     }
     // 编译&单元测试
     def packageAndJunit() {
-        steps.sh 'mvn package'
+        steps.sh 'mvn package -Dmaven.test.skip=true'
     }
     // 生成镜像
     def buildImage(registry, dockerCredential, imageName) {
