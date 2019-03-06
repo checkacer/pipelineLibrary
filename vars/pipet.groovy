@@ -24,6 +24,13 @@ def call(){
                     }
                 }
             }
+            stage('test2'){
+                steps {
+                    script {
+                        u.packageAndJunit()
+                    }
+                }
+            }
         }
     }
 }
