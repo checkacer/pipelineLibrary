@@ -1,4 +1,4 @@
-def call(Map map){
+def call(){
     pipeline {
         agent any
         environment {
@@ -7,6 +7,8 @@ def call(Map map){
             imageName = "dcits/i-test:${tag}"
             gitCredentialsId = "a6600fad-d566-4408-b024-2d5e8ea29311"
             dockerCredential = "aliyun"
+            branch = "master"
+            repoUrl = "https://github.com/checkacer/runindockerdemo"
         }
         tools {
             maven 'maven'
@@ -14,7 +16,7 @@ def call(Map map){
         }
         def utils = new org.foo.Utils(steps)
         stage('build') {
-            utils.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
+            utils.checkOutFromGit("${branch}","${gitCredentialsId}","${repoUrl}")
         }
 
     }
