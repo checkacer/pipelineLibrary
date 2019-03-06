@@ -14,8 +14,8 @@ def call(Map map){
             maven 'maven'
             jdk 'jdk'
         }
-        def comm = new org.foo.Utils(steps)
         stages {
+            def comm = new org.foo.Utils(steps)
             stage('CheckOut') {
                 steps {
                     comm.checkOutFromGit("${map.branch}","${gitCredentialsId}","${map.repoUrl}")
