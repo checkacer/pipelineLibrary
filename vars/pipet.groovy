@@ -1,3 +1,4 @@
+#!groovy
 import org.foo.Utils
 def call(){
     pipeline {
@@ -13,9 +14,7 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-
         stages {
-
             stage('test') {
                 steps {
                     def u = new Utils(steps)
