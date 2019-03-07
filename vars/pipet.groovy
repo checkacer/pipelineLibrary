@@ -15,6 +15,9 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
+        symbols {
+
+        }
         stages {
             stage('checkOut') {
                 steps {
@@ -35,7 +38,9 @@ def call(){
             stage('build') {
                 steps {
                     script {
-                        u.buildImage(symbols,"registry","dockerCredential","${imageName}")
+                        symbols {
+                            u.buildImage(pipeline,"registry","dockerCredential","${imageName}")
+                        }
                     }
                 }
             }
