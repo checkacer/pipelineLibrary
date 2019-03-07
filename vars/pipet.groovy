@@ -15,9 +15,6 @@ def call(){
             maven 'maven'
             jdk 'jdk'
         }
-        symbols {
-
-        }
         stages {
             stage('checkOut') {
                 steps {
