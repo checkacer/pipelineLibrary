@@ -1,15 +1,20 @@
 #!groovy
-def call(){
+def call(Map map){
     def u = new org.foo.Utilities()
     pipeline {
         agent any
         environment {
             registry = "registry.cn-hangzhou.aliyuncs.com"
-            gitCredentialsId = "a6600fad-d566-4408-b024-2d5e8ea29311"
-            dockerCredential = "aliyun"
-            branch = "master"
-            repoUrl = "https://github.com/checkacer/runindockerdemo"
-            imageName = "dcits/api-t"
+//            gitCredentialsId = "a6600fad-d566-4408-b024-2d5e8ea29311"
+            gitCredentialsId = "${map.gitCredentialsId}"
+//            dockerCredential = "aliyun"
+            dockerCredential = "${map.dockerCredential}"
+//            branch = "master"
+            branch = "${map.master}"
+//            repoUrl = "https://github.com/checkacer/runindockerdemo"
+            repoUrl = "${map.repoUrl}"
+//            imageName = "dcits/api-t"
+            imageName = "${map.imageName}"
         }
         tools {
             maven 'maven'
