@@ -9,7 +9,7 @@ def call(){
             dockerCredential = "aliyun"
             branch = "master"
             repoUrl = "https://github.com/checkacer/runindockerdemo"
-            imageName = "api-t"
+            imageName = "dcits/api-t"
         }
         tools {
             maven 'maven'
