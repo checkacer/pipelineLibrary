@@ -14,9 +14,9 @@ class Utilities implements Serializable{
         steps.sh 'mvn package -Dmaven.test.skip=true'
     }
     // 生成镜像
-    def buildImage(pipeline, registry, dockerCredential, imageName) {
-        pipeline.docker.withRegistry("https://${registry}", "${dockerCredential}") {
-            pipeline.docker.build("${imageName}", '.').push()
+    def buildImage(jenkinsci, registry, dockerCredential, imageName) {
+        jenkinsci.docker.withRegistry("https://${registry}", "${dockerCredential}") {
+            jenkinsci.docker.build("${imageName}", '.')
         }
     }
 }
