@@ -10,7 +10,7 @@ def call(Map map){
 //            dockerCredential = "aliyun"
             dockerCredential = "${map.dockerCredential}"
 //            branch = "master"
-            branch = "${map.master}"
+            branch = "${map.branch}"
 //            repoUrl = "https://github.com/checkacer/runindockerdemo"
             repoUrl = "${map.repoUrl}"
 //            imageName = "dcits/api-t"
