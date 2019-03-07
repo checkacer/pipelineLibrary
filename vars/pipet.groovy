@@ -25,8 +25,9 @@ def call(Map map){
                 steps {
                     script {
                         u.setSteps(steps)
+                        echo "${branch} & ${gitCredentialsId} & ${repoUrl}"
                         u.checkOutFromGit("${branch}","${gitCredentialsId}","${repoUrl}")
-                        echo "Hello World"
+
                     }
                 }
             }
