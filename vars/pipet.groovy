@@ -35,7 +35,7 @@ def call(){
             stage('build') {
                 steps {
                     script {
-                        u.buildImage(this,"registry","dockerCredential","${imageName}")
+                        u.buildImage(this,"${registry}","${dockerCredential}","${imageName}")
                     }
                 }
             }
