@@ -35,9 +35,7 @@ def call(){
             stage('build') {
                 steps {
                     script {
-                        symbols {
-                            u.buildImage(pipeline,"registry","dockerCredential","${imageName}")
-                        }
+                        u.buildImage(pipeline,"registry","dockerCredential","${imageName}")
                     }
                 }
             }
