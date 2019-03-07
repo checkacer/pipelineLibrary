@@ -21,14 +21,14 @@ class Command implements Serializable {
         }
     }
 // 生成镜像
-    def buildImage(registry, dockerCredential, imageName) {
-        steps.docker.withRegistry("https://${registry}", "${dockerCredential}") {
-            steps.docker.build("${imageName}", '.').push()
+    def buildImage(symbols, registry, dockerCredential, imageName) {
+        symbols.docker.withRegistry("https://${registry}", "${dockerCredential}") {
+            symbols.docker.build("${imageName}", '.').push()
         }
     }
 // 依赖安全检查
-    def dependencyCheck(scanPath) {
-        steps.dependencyCheckAnalyzer datadir: '',
+    def dependencyCheck(symbols, scanPath) {
+        symbols.dependencyCheckAnalyzer datadir: '',
             hintsFile: '',
             includeCsvReports: false,
             includeHtmlReports: false,
@@ -41,7 +41,7 @@ class Command implements Serializable {
             suppressionFile: '',
             zipExtensions: ''
         // 有高级别组件漏洞时，fail掉pipeline
-        steps.dependencyCheckPublisher canComputeNew: false,
+        symbols.dependencyCheckPublisher canComputeNew: false,
             defaultEncoding: '',
             failedTotalHigh: '0',
             healthy: '',
@@ -63,7 +63,7 @@ class Command implements Serializable {
         steps.junit "${url}"
     }
 
-    def apiTest(postmanCJ, postmanEJ, reporterEXml, reporterEHtml, reporterTHtml, reportName, reportTitles) {
+    def apiTest(symbols, postmanCJ, postmanEJ, reporterEXml, reporterEHtml, reporterTHtml, reportName, reportTitles) {
         try {
             steps.sh "export PATH=$PATH:/jenkins/tools/node-v8.11.2-linux-x64/bin/&&" +
                 "newman run ${postmanCJ} " +
@@ -75,12 +75,12 @@ class Command implements Serializable {
         } catch (e) {
             steps.echo 'API测试出现错误' + e.toString()
         }
-        steps.publishHTML([allowMissing         : false,
-                           alwaysLinkToLastBuild: true,
-                           keepAll              : false,
-                           reportDir            : './',
-                           reportFiles          : 'reporter.html',
-                           reportName           : "${reportName}",
-                           reportTitles         : "${reportTitles}"])
+        symbols.publishHTML([allowMissing         : false,
+                             alwaysLinkToLastBuild: true,
+                             keepAll              : false,
+                             reportDir            : './',
+                             reportFiles          : 'reporter.html',
+                             reportName           : "${reportName}",
+                             reportTitles         : "${reportTitles}"])
     }
 }

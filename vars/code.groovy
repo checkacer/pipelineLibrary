@@ -48,13 +48,13 @@ def call(Map map){
                     stage('生成镜像') {
                         steps {
                             script {
-                                comm.buildImage("${registry}","${dockerCredential}","${imageName}")
+                                comm.buildImage(symbols,"${registry}","${dockerCredential}","${imageName}")
                             }
                         }
                     }
                     stage('依赖安全检查') {
                         steps {
-                            comm.dependencyCheck("${scanPath}")
+                            comm.dependencyCheck(symbols,"${scanPath}")
                         }
                     }
                 }
@@ -66,7 +66,7 @@ def call(Map map){
             }
             stage('API测试') {
                 steps {
-                    comm.apiTest("${postmanCJ}",
+                    comm.apiTest(symbols,"${postmanCJ}",
                         "${postmanEJ}",
                         "${reporterEXml}",
                         "${reporterEHtml}",
